@@ -53,6 +53,10 @@ $user = get_user_by_id($_GET['id']);
                                         <input name="email" type="email" id="example-email-2" class="form-control" placeholder="Email" value="<?= $user['email']; ?>">
                                     </div>
                                     <div class="form-group">
+                                        <label class="form-label" for="example-password">Password</label>
+                                        <input name="password" type="password" id="example-password" class="form-control" value="">
+                                    </div>
+                                    <div class="form-group">
                                         <label class="form-label" for="example-select">Статус</label>
                                         <select name="status" class="form-control" id="example-select">
                                             <option value="1" <?= ($user['status'] === 1)? "selected" : ""; ?>>Активный</option>
@@ -71,7 +75,7 @@ $user = get_user_by_id($_GET['id']);
                                         <label class="form-label" for="example-fileinput">Аватар</label>
                                         <input name="avatar" type="file" id="example-fileinput" class="form-control-file" value="<?= $user['avatar']; ?>">
 
-                                        <img src="uploads/<?= $user['avatar']; ?>" width="100">
+                                        <img src="<?= check_avatar_file_on_disk($user['avatar']); ?>" width="100">
                                     </div>
 
                                     <div class="form-group">

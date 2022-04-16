@@ -55,7 +55,7 @@ $user = get_user_by_id($_GET['id']);
                                     <tbody>
                                         <tr>
                                             <th scope="row"><?= $user['id']; ?></th>
-                                            <td><img src="uploads/<?= $user['avatar'] ?>" width="75"></td>
+                                            <td><img src="<?= check_avatar_file_on_disk($user['avatar']); ?>" width="75"></td>
                                             <td><?= $user['login']; ?></td>
                                             <td><?= $user['role']; ?></td>
                                             <td><?= ($user['status'])? "Активен" : "Забанен"; ?></td>

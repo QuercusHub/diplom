@@ -88,7 +88,7 @@ function update_user($id, $login, $email, $role, $status, $avatar)
     $result->bindParam(':avatar', $avatar, PDO::PARAM_STR);
     $result->execute();
     
-    redirect_to("index.php");
+    //redirect_to("index.php");
 }
 
 
@@ -105,4 +105,30 @@ function get_user_avatar($id)
         $avatar = $result->fetch();
         return $avatar['avatar'];
     }
+}
+
+
+function check_avatar_file_on_disk($filename)
+{
+    
+    if (file_exists('uploads/' . $filename)) {
+        $avatar = 'uploads/' . $filename;
+    } else {
+        $avatar = 'uploads/avatar-m.png';
+    }
+    return $avatar;
+}
+
+function update_user_password($password, $id)
+{
+    //var_dump($password, $id); die;
+    $password = password_hash($password, PASSWORD_BCRYPT);
+    $db = getConnection();
+    $sql = "UPDATE users SET password = :password WHERE id = :id";
+    $result = $db->prepare($sql);
+    $result->bindParam(':id', $id, PDO::PARAM_INT);
+    $result->bindParam(':password', $password, PDO::PARAM_STR);
+    $result->execute();
+    
+    redirect_to("index.php");
 }
